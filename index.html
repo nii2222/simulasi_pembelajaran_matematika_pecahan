@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembelajaran Pecahan Kelas 6 SD</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .cover {
+            height: 100vh;
+            background: url('https://i.ibb.co/6rBQBd8/cover-matematika.jpg') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .cover h1 {
+            font-size: 2.5rem;
+            color: white;
+            text-shadow: 2px 2px 5px #000;
+        }
+        .start-btn {
+            padding: 15px 30px;
+            background-color: #ff6347;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .game-section {
+            display: none;
+            padding: 20px;
+        }
+        .level {
+            display: none;
+            margin-top: 20px;
+        }
+        .question {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        .image-question {
+            margin: 10px 0;
+        }
+        .image-question img {
+            max-width: 200px;
+            border-radius: 10px;
+        }
+        .choices button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 6px;
+            background-color: #20b2aa;
+            color: white;
+            cursor: pointer;
+        }
+        .choices button:hover {
+            background-color: #2e8b57;
+        }
+        .reward {
+            font-size: 2rem;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="cover" id="cover">
+        <h1>Belajar Pecahan Kelas 6 SD</h1>
+        <button class="start-btn" onclick="startGame()">Mulai</button>
+    </div>
+
+    <div class="game-section" id="game">
+        <div id="level1" class="level">
+            <div class="question">1. Nyatakan bentuk pecahan campuran dari 7/2</div>
+            <div class="choices">
+                <button onclick="checkAnswer(1, '3 1/2')">3 1/2</button>
+                <button onclick="checkAnswer(1, '2 1/2')">2 1/2</button>
+                <button onclick="checkAnswer(1, '1 3/4')">1 3/4</button>
+            </div>
+            <div id="reward1" class="reward"></div>
+        </div>
+
+        <div id="level2" class="level">
+            <div class="question">2. Gambar berikut menunjukkan pecahan berapa dari satu lingkaran?</div>
+            <div class="image-question"><img src="https://i.ibb.co/2vymk4W/pizza-3-of-4.png" alt="3/4 Pizza"></div>
+            <div class="choices">
+                <button onclick="checkAnswer(2, '3/4')">3/4</button>
+                <button onclick="checkAnswer(2, '1/2')">1/2</button>
+                <button onclick="checkAnswer(2, '1/4')">1/4</button>
+            </div>
+            <div id="reward2" class="reward"></div>
+        </div>
+
+        <div id="level3" class="level">
+            <div class="question">3. Hitung: 2/5 + 3/10 = ?</div>
+            <div class="choices">
+                <button onclick="checkAnswer(3, '7/10')">7/10</button>
+                <button onclick="checkAnswer(3, '1/2')">1/2</button>
+                <button onclick="checkAnswer(3, '9/10')">9/10</button>
+            </div>
+            <div id="reward3" class="reward"></div>
+        </div>
+
+        <div id="level4" class="level">
+            <div class="question">4. Pecahan manakah yang setara dengan 6/8?</div>
+            <div class="choices">
+                <button onclick="checkAnswer(4, '3/4')">3/4</button>
+                <button onclick="checkAnswer(4, '1/2')">1/2</button>
+                <button onclick="checkAnswer(4, '2/3')">2/3</button>
+            </div>
+            <div id="reward4" class="reward"></div>
+        </div>
+
+        <div id="level5" class="level">
+            <div class="question">5. Mana hasil dari 1 1/2 - 3/4 ?</div>
+            <div class="choices">
+                <button onclick="checkAnswer(5, '3/4')">3/4</button>
+                <button onclick="checkAnswer(5, '1/2')">1/2</button>
+                <button onclick="checkAnswer(5, '1/4')">1/4</button>
+            </div>
+            <div id="reward5" class="reward"></div>
+        </div>
+    </div>
+
+<script>
+    let currentLevel = 1;
+
+    const correctAnswers = {
+        1: '3 1/2',
+        2: '3/4',
+        3: '7/10',
+        4: '3/4',
+        5: '3/4'
+    };
+
+    function startGame() {
+        document.getElementById('cover').style.display = 'none';
+        document.getElementById('game').style.display = 'block';
+        document.getElementById('level1').style.display = 'block';
+    }
+
+    function checkAnswer(level, choice) {
+        const rewardEl = document.getElementById(`reward${level}`);
+        if (choice === correctAnswers[level]) {
+            rewardEl.textContent = 'Benar! Hebat!';
+            rewardEl.style.display = 'block';
+            setTimeout(() => {
+                document.getElementById(`level${level}`).style.display = 'none';
+                currentLevel++;
+                if (currentLevel <= 5) {
+                    document.getElementById(`level${currentLevel}`).style.display = 'block';
+                } else {
+                    document.getElementById('game').innerHTML = '<h2>Selamat! Kamu telah menyelesaikan semua soal pecahan kelas 6!</h2>';
+                }
+            }, 1000);
+        } else {
+            rewardEl.textContent = 'Coba lagi!';
+            rewardEl.style.display = 'block';
+        }
+    }
+</script>
+</body>
+</html>
